@@ -14,7 +14,7 @@ export default function Strip({ gameId }) {
       window.localStorage.setItem("userId", userId);
     }
 
-    fetch(`http://localhost:3000/strip/${gameId}?user_id=?${userId}`)
+    fetch(`${process.env.REACT_APP_API_URL}/strip/${gameId}?user_id=?${userId}`)
       .then((res) => res.json())
       .then(
         (result) => {

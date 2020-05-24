@@ -15,10 +15,10 @@
 }
 
 .play button {
-  background: orange;
+  background: #88ff89;
   margin: 0 30px;
   border: none;
-  color: white;
+  color: black;
   padding: 30px;
   cursor: pointer;
   font-size: 2em;
@@ -26,4 +26,5 @@
 
 .play button:disabled {
   background: lightgrey;
+  color: white;
 }

@@ -1,0 +1,26 @@
+.home {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.home__title {
+  font-size: 4em;
+}
+
+.home__title--first {
+  color: #ff8d8d;
+}
+
+.home__title--second {
+  color: #fff795;
+}
+.home__title--thrid {
+  color: #88ff89;
+}
+.home__title--forth {
+  color: #87fffe;
+}
+.home__title--fifth {
+  color: #8cb3fe;
+}

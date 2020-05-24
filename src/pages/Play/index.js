@@ -9,12 +9,9 @@ function Play() {
   const { gameId = false } = useParams();
   const history = useHistory();
 
-  const handleChange = (e) => {
-    setLocalGameId(e.target.value);
-  };
-
-  const handleUpdate = (e) => {
-    setTempGameId(e.target.value);
+  const handleUpdate = ({ target: { value } }) => {
+    setLocalGameId(value);
+    setTempGameId(value);
   };
 
   const handleClick = () => {

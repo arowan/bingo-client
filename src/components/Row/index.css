@@ -18,7 +18,7 @@
 }
 
 .row__cell--highlight {
-  background: yellow;
+  background: #fff795;
 }
 
 .row__cell--empty {
@@ -27,5 +27,5 @@
 }
 
 .row--complete {
-  background: green;
+  background: #88ff89;
 }
