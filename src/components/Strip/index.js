@@ -8,7 +8,13 @@ export default function Strip({ gameId }) {
   const [tickets, setTickets] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/strip/${gameId}`)
+    let userId = window.localStorage.getItem("userId");
+    if (!userId) {
+      userId = Math.random().toString(36).substring(7);
+      window.localStorage.setItem("userId", userId);
+    }
+
+    fetch(`http://localhost:3000/strip/${gameId}?user_id=?${userId}`)
       .then((res) => res.json())
       .then(
         (result) => {

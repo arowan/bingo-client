@@ -6,7 +6,7 @@ export default function Ticket({ data: { rows } }) {
   return (
     <div className="ticket">
       {rows.map((row, idx) => (
-        <Row key={`row-${idx}`} data={row} />
+        <Row key={`row-${idx}`} data={row} uid={`row-${idx}`} />
       ))}
     </div>
   );

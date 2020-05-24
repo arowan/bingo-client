@@ -12,6 +12,7 @@ function Play() {
   };
 
   const handleClick = () => {
+    window.localStorage.clear();
     history.push(`/play/${localGameId}`);
   };
 
