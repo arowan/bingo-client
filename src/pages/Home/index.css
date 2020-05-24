@@ -6,21 +6,113 @@
 
 .home__title {
   font-size: 4em;
+  animation-duration: 0.8s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  -webkit-text-stroke-width: 1px;
+  -webkit-text-stroke-color: black;
 }
 
 .home__title--first {
-  color: #ff8d8d;
+  animation-name: backgroundColorPalette;
 }
 
 .home__title--second {
-  color: #fff795;
+  animation-name: backgroundColorPalette2;
 }
 .home__title--thrid {
-  color: #88ff89;
+  animation-name: backgroundColorPalette3;
 }
 .home__title--forth {
-  color: #87fffe;
+  animation-name: backgroundColorPalette4;
 }
 .home__title--fifth {
-  color: #8cb3fe;
+  animation-name: backgroundColorPalette5;
+}
+
+@keyframes backgroundColorPalette {
+  0% {
+    color: #ff8d8d; /* 1 */
+  }
+  25% {
+    color: #fff795; /* 2*/
+  }
+  50% {
+    color: #88ff89; /* 3 */
+  }
+  75% {
+    color: #87fffe; /* 4 */
+  }
+  100% {
+    color: #8cb3fe; /* 5 */
+  }
+}
+
+@keyframes backgroundColorPalette2 {
+  0% {
+    color: #8cb3fe; /* 5 */
+  }
+  25% {
+    color: #ff8d8d; /* 1 */
+  }
+  50% {
+    color: #fff795; /* 2*/
+  }
+  75% {
+    color: #88ff89; /* 3 */
+  }
+  100% {
+    color: #87fffe; /* 4 */
+  }
+}
+@keyframes backgroundColorPalette3 {
+  0% {
+    color: #87fffe; /* 4 */
+  }
+  25% {
+    color: #8cb3fe; /* 5 */
+  }
+  50% {
+    color: #ff8d8d; /* 1 */
+  }
+  75% {
+    color: #fff795; /* 2*/
+  }
+  100% {
+    color: #88ff89; /* 3 */
+  }
+}
+@keyframes backgroundColorPalette4 {
+  0% {
+    color: #88ff89; /* 3 */
+  }
+  25% {
+    color: #87fffe; /* 4 */
+  }
+  50% {
+    color: #8cb3fe; /* 5 */
+  }
+  75% {
+    color: #ff8d8d; /* 1 */
+  }
+  100% {
+    color: #fff795; /* 2*/
+  }
+}
+@keyframes backgroundColorPalette5 {
+  0% {
+    color: #fff795; /* 2*/
+  }
+  25% {
+    color: #88ff89; /* 3 */
+  }
+  50% {
+    color: #87fffe; /* 4 */
+  }
+  75% {
+    color: #8cb3fe; /* 5 */
+  }
+  100% {
+    color: #ff8d8d; /* 1 */
+  }
 }
