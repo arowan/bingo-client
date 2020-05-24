@@ -9,17 +9,8 @@ function App() {
     <Router>
       <div>
         <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/host">Host</Link>
-            </li>
-            <li>
-              <Link to="/play">Play</Link>
-            </li>
-          </ul>
+          <Link to="/host">Host</Link>
+          <Link to="/play">Play</Link>
         </nav>
         <Switch>
           <Route path="/host">

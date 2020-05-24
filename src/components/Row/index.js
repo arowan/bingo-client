@@ -6,20 +6,20 @@ const compareArrays = (a, b) =>
   a.reduce((res, i) => res + (b.includes(i) ? 1 : 0), 0) === a.length;
 
 export default function Row({ data: { values }, uid }) {
+  const { gameId } = useParams();
   const loadOldUsed = JSON.parse(
-    window.localStorage.getItem(`gameId-row-${uid}`) || "[]"
+    window.localStorage.getItem(`${gameId}-${uid}`) || "[]"
   );
+
   const [used, setUsed] = useState(loadOldUsed);
   const [complete, setComplete] = useState(false);
   const [avaliable] = useState(values.filter((i) => i != null));
-
-  const { gameId } = useParams();
 
   const handleClick = (cell) => () => {
     if (!used.includes(cell)) {
       const newUsed = [...used, cell];
       setUsed(newUsed);
-      window.localStorage.setItem(`gameId-${uid}`, JSON.stringify(newUsed));
+      window.localStorage.setItem(`${gameId}-${uid}`, JSON.stringify(newUsed));
     }
   };
 

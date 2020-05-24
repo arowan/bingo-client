@@ -41,7 +41,7 @@ export default function Strip({ gameId }) {
     return (
       <div className="strip" style={css}>
         {tickets.map((ticket, idx) => (
-          <Ticket key={`ticket-${idx}`} data={ticket} />
+          <Ticket key={`ticket-${idx}`} data={ticket} uid={idx} />
         ))}
       </div>
     );

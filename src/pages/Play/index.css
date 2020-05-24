@@ -1,0 +1,29 @@
+.play {
+  display: flex;
+  flex-direction: column;
+}
+
+.play h3 {
+  margin: 30px;
+}
+
+.play input {
+  margin: 30px;
+  height: 60px;
+  font-size: 2em;
+  text-align: center;
+}
+
+.play button {
+  background: orange;
+  margin: 0 30px;
+  border: none;
+  color: white;
+  padding: 30px;
+  cursor: pointer;
+  font-size: 2em;
+}
+
+.play button:disabled {
+  background: lightgrey;
+}
