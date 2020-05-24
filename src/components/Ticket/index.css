@@ -1,0 +1,7 @@
+.ticket {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: calc(100% / 7);
+  box-sizing: border-box;
+}

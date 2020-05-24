@@ -1,0 +1,31 @@
+.row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: calc(100% / 3);
+  box-sizing: border-box;
+}
+
+.row__cell {
+  cursor: pointer;
+  width: calc(100% / 9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  font-size: 2em;
+  border: 1px solid grey;
+}
+
+.row__cell--highlight {
+  background: yellow;
+}
+
+.row__cell--empty {
+  cursor: auto;
+  background: lightgrey;
+}
+
+.row--complete {
+  background: green;
+}
