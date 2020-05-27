@@ -8,7 +8,7 @@
 
 .row__cell {
   cursor: pointer;
-  width: calc(100% / 9);
+  width: calc(100% / 5);
   display: flex;
   justify-content: center;
   align-items: center;
