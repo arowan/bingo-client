@@ -1,3 +1,4 @@
+@import "../../colours.scss";
 .play {
   display: flex;
   flex-direction: column;
@@ -15,7 +16,7 @@
 }
 
 .play button {
-  background: #88ff89;
+  background: $green;
   margin: 0 30px;
   border: none;
   color: black;

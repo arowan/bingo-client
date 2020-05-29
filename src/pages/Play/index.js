@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import Strip from "../../components/Strip";
-import "./index.css";
+import "./index.scss";
 
 function Play() {
   const [tempGameId, setTempGameId] = useState(null);

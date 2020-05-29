@@ -1,0 +1,41 @@
+@import "../../colours.scss";
+
+.result {
+  h3 {
+  }
+  h2 {
+  }
+
+  h1 {
+  }
+
+  &__success {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    img {
+      width: 50%;
+    }
+  }
+
+  &__players {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .name {
+      font-size: 2em;
+      &--red {
+        color: $red;
+      }
+
+      &--blue {
+        color: $blue;
+      }
+    }
+    div {
+      margin: 10px;
+    }
+  }
+}

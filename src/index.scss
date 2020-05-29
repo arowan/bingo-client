@@ -1,3 +1,5 @@
+@import "./colours.scss";
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -24,7 +26,7 @@ nav a {
   display: flex;
   justify-content: center;
   text-decoration: none;
-  background: #8cb3fe;
+  background: $blue;
   color: white;
   font-size: 2em;
 }
@@ -34,5 +36,5 @@ nav a:hover {
 }
 
 nav a:first-of-type {
-  background: #ff8d8d;
+  background: $red;
 }

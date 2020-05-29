@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Ticket from "../Ticket";
-import "./index.css";
+import "./index.scss";
 
 export default function Strip({ gameId }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [tickets, setTickets] = useState([]);
+  const [ticketId, setTicketId] = useState(null);
 
   useEffect(() => {
     let userId = window.localStorage.getItem("userId");
@@ -20,6 +21,7 @@ export default function Strip({ gameId }) {
         (result) => {
           setIsLoaded(true);
           setTickets(result.tickets);
+          setTicketId(result.id);
         },
         (error) => {
           setTickets([]);
@@ -33,16 +35,31 @@ export default function Strip({ gameId }) {
     height: window.innerHeight,
   };
 
+  let team = null;
+  if (ticketId) {
+    team = ticketId.match("^(.+)-")[1];
+  }
+
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
     return <div>Loading...</div>;
   } else {
     return (
-      <div className="strip" style={css}>
-        {tickets.map((ticket, idx) => (
-          <Ticket key={`ticket-${idx}`} data={ticket} uid={idx} />
-        ))}
+      <div>
+        <div className="strip-data">
+          <h2 className={`strip-data__id--${team}`}>{ticketId}</h2>
+        </div>
+        <div className="strip" style={css}>
+          {tickets.map((ticket, idx) => (
+            <Ticket
+              key={`ticket-${idx}`}
+              data={ticket}
+              uid={idx}
+              ticketId={ticketId}
+            />
+          ))}
+        </div>
       </div>
     );
   }

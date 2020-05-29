@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import "./index.css";
+import "./index.scss";
 
 const compareArrays = (a, b) =>
   a.reduce((res, i) => res + (b.includes(i) ? 1 : 0), 0) === a.length;
 
-export default function Row({ data: { values }, uid }) {
+export default function Row({ data: { values }, uid, team }) {
   const { gameId } = useParams();
   const loadOldUsed = JSON.parse(
     window.localStorage.getItem(`${gameId}-${uid}`) || "[]"
@@ -16,27 +16,39 @@ export default function Row({ data: { values }, uid }) {
   const [avaliable] = useState(values.filter((i) => i != null));
 
   const handleClick = (cell) => () => {
-    if (!used.includes(cell)) {
-      const newUsed = [...used, cell];
-      setUsed(newUsed);
-      window.localStorage.setItem(`${gameId}-${uid}`, JSON.stringify(newUsed));
+    if (!cell) {
+      return null;
     }
+    let newUsed = null;
+    if (!used.includes(cell)) {
+      newUsed = [...used, cell];
+    } else {
+      newUsed = used.filter((i) => i !== cell);
+    }
+    setUsed(newUsed);
+    window.localStorage.setItem(`${gameId}-${uid}`, JSON.stringify(newUsed));
   };
 
   useEffect(() => {
-    setComplete(compareArrays(avaliable, used));
+    setComplete(used.length > 0 && compareArrays(avaliable, used));
   }, [used]);
 
+  const cellWidth = 100 / values.length + 1;
+
   return (
-    <div className={`row ${complete ? "row--complete" : ""}`}>
+    <div className="row">
       {values.map((cell, idx) => (
         <div
           onClick={handleClick(cell)}
           key={`cell-${idx}`}
-          className={`row__cell ${
+          style={{
+            width: `${cellWidth}%`,
+          }}
+          className={`row__cell row__cell--${team} ${
             used.includes(cell) && !complete ? "row__cell--highlight" : ""
           }
-          ${cell === null ? "row__cell--empty" : ""}
+          ${cell === null && !complete ? `row__cell--${team}-empty` : ""}
+          ${complete ? "row__cell--complete" : ""}
           `}
         >
           {cell}
