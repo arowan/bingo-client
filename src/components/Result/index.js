@@ -92,7 +92,7 @@ export default function Result({ data: { result = [], nominated_players } }) {
           <img src={parrot} />
         </div>
       )}
-      {has2 && (
+      {has2 && !has3 && (
         <div className="result__success">
           <h2>2 rows!</h2>
           <img src={partyparrot} />
