@@ -38,10 +38,10 @@ export default function Result({ data: { result = [], nominated_players } }) {
   ];
 
   const challenges = [
-    {
-      title: "High Card",
-      description: "Place 3 card on the table each player picks a card",
-    },
+    // {
+    //   title: "High Card",
+    //   description: "Place 3 card on the table each player picks a card",
+    // },
     {
       title: "House",
       description:
@@ -56,10 +56,10 @@ export default function Result({ data: { result = [], nominated_players } }) {
       description:
         "Each player will sketch something and their team will have to guess what it is.",
     },
-    {
-      title: "Crocodile",
-      description: "head to head dentistry.",
-    },
+    // {
+    //   title: "Crocodile",
+    //   description: "head to head dentistry.",
+    // },
     {
       title: "Waterfall",
       description: "Team boat race.",
@@ -74,14 +74,14 @@ export default function Result({ data: { result = [], nominated_players } }) {
       description:
         "Players will be given a letter and will need to give a celebrity/Character name which the first letter of their first name and surname match - Mike Myers - Mickey Mouse.",
     },
-    {
-      title: "Rock Paper Scissors",
-      description: "Best of 3.",
-    },
-    {
-      title: "Where's the sauna",
-      description: "First team to grab a towel.",
-    },
+    // {
+    //   title: "Rock Paper Scissors",
+    //   description: "Best of 3.",
+    // },
+    // {
+    //   title: "Where's the sauna",
+    //   description: "First team to grab a towel.",
+    // },
   ];
 
   return (
