@@ -1,124 +1,123 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import "./index.scss";
+import hmmparrot from "./hmmparrot.gif";
 
 const getRandom = (array) => array[Math.floor(Math.random() * array.length)];
-
-export default function Game() {
+export default function Game({ gameId, playerId, onPick }) {
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [gettingItem, setGettingItem] = useState(false);
+  const [error, setError] = useState(null);
   const [item, setItem] = useState(null);
-  const [challange, setChallange] = useState(null);
-
-  const house = [
-    "Team wears something of their team colours",
-    "Tea Bag",
-    "Team to wear a hat",
-    "Iron",
-    "Battery",
-    "Ketchup",
-    "FlipFlops",
-    "Sun Glasses",
-    "Coat",
-    "Soap",
-    "Mug",
-  ];
-
-  const challenges = [
-    {
-      title: "High Card",
-      description: "Place 3 cards on the table each player picks a card",
-    },
-    {
-      title: "House",
-      description:
-        "Players will need to get something from their house and bring it back",
-    },
-    {
-      title: "Finish it",
-      description: "First to finish their drink",
-    },
-    {
-      title: "Draw Something",
-      // description: "head to head, Caller picks the best drawing.",
-      description:
-        "each player will sketch something out and there team will have to guess what it is.",
-    },
-    {
-      title: "Crocodile",
-      description: "head to head dentistry.",
-    },
-    {
-      title: "Waterfall",
-      description: "Team boat race.",
-    },
-    {
-      title: "Sing it",
-      description:
-        "head to head contender has to sing a song which their team will have to guess the song and artist.",
-    },
-    {
-      title: "Alliteration",
-      description:
-        "Players will be given a letter and will need to give a celebrity/Character name which the first letter of their first name and surname match - Mike Myers - Mickey Mouse.",
-    },
-    {
-      title: "Rock Paper Scissors",
-      description: "Best of 3.",
-    },
-    {
-      title: "Where's the sauna",
-      description: "First team to grab a towel.",
-    },
-    // {
-    //   title: "Gramma",
-    //   description: "Only for Greg, spell the correct there/their/they're.",
-    // },
-    {
-      title: "Disco",
-      description: "head to head, Caller picks the best contender dancer.",
-    },
-  ];
-
-  const drawings = [
-    "Rocket ship",
-    "Coffee Bean",
-    "Bananna",
-    "Candle",
-    "Car",
-    "Bus",
-    "Sun",
-    "Tree",
-    "Screwdriver",
-    "Giraffe",
-    "Penguin",
-    "Lion",
-    "Dog",
-    "Cat",
-  ];
+  const [challenge, setChallange] = useState(null);
+  const [challenges, setChallanges] = useState(null);
+  const [nominations, setNominations] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
-    setChallange(getRandom(challenges));
+    fetch(`${process.env.REACT_APP_API_URL}/game/${gameId}/challenges`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setChallanges(result.challenges);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
   }, []);
 
+  const handlePick = (challenge) => {
+    fetch(`${process.env.REACT_APP_API_URL}/player/${playerId}/nominate`)
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          setNominations(result);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+    onPick();
+    setChallange(challenge);
+  };
+
+  const handlePointForTeam = (team) => {
+    fetch(`${process.env.REACT_APP_API_URL}/game/${gameId}/point/${team}`, {
+      method: "PUT",
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          history.push(`/host/${gameId}`);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
+  };
+
   useEffect(() => {
-    if (challange && challange.title === "House") {
+    if (challenge && challenge.items) {
+      setGettingItem(true);
       setTimeout(() => {
-        setItem(getRandom(house));
+        setItem(getRandom(challenge.items));
+        setGettingItem(false);
       }, 5000);
     }
+  }, [challenge]);
 
-    // if (challange.title === "Draw Something") {
-    //   setItem(getRandom(drawings));
-    // }
-  }, [challange]);
-
-  if (!challange) {
+  if (!challenges) {
     return null;
   }
+
   return (
     <div className="game">
-      <h3>{challange.title}</h3>
-      <p>{challange.description}</p>
+      {!challenge && (
+        <div className="game__challenages">
+          {challenges.map((challenge, idx) => (
+            <div key={`game-c-${idx}`} className="game__challenage">
+              <h3>{challenge.title}</h3>
+              <button onClick={() => handlePick(challenge)}>Pick</button>
+            </div>
+          ))}
+        </div>
+      )}
 
-      <h4>{item}</h4>
+      {challenge && (
+        <div className="game__challenage">
+          <h3>{challenge.title}</h3>
+          <p>{challenge.description}</p>
+
+          {gettingItem && <img src={hmmparrot} />}
+          <h4>{item}</h4>
+        </div>
+      )}
+
+      {nominations && (
+        <div className="game__nominations">
+          <div className="game__nominations--blue">
+            <span
+              onClick={() => handlePointForTeam("blue")}
+              className="person__nickname person__nickname--blue"
+            >
+              {nominations.blue[0]}
+            </span>
+          </div>
+          <div className="game__nominations--red">
+            <span
+              onClick={() => handlePointForTeam("red")}
+              className="person__nickname person__nickname--red"
+            >
+              {nominations.red[0]}
+            </span>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

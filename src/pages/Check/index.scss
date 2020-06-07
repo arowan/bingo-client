@@ -1,0 +1,25 @@
+@import "../../colours.scss";
+
+.check {
+  &__player {
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  &__player-teams {
+    flex-grow: 1;
+
+    &--blue {
+      background: $blue;
+    }
+    &--red {
+      background: $red;
+    }
+  }
+  &__player-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+}

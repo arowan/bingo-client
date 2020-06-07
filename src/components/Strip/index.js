@@ -2,29 +2,21 @@ import React, { useState, useEffect } from "react";
 import Ticket from "../Ticket";
 import "./index.scss";
 
-export default function Strip({ gameId }) {
+export default function Strip({ playerId }) {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [tickets, setTickets] = useState([]);
-  const [ticketId, setTicketId] = useState(null);
+  const [player, setPlayer] = useState({});
 
   useEffect(() => {
-    let userId = window.localStorage.getItem("userId");
-    if (!userId) {
-      userId = Math.random().toString(36).substring(7);
-      window.localStorage.setItem("userId", userId);
-    }
-
-    fetch(`${process.env.REACT_APP_API_URL}/strip/${gameId}?user_id=?${userId}`)
+    setIsLoaded(false);
+    fetch(`${process.env.REACT_APP_API_URL}/player/${playerId}`)
       .then((res) => res.json())
       .then(
         (result) => {
+          setPlayer(result);
           setIsLoaded(true);
-          setTickets(result.tickets);
-          setTicketId(result.id);
         },
         (error) => {
-          setTickets([]);
           setIsLoaded(true);
           setError(error);
         }
@@ -35,11 +27,6 @@ export default function Strip({ gameId }) {
     height: window.innerHeight,
   };
 
-  let team = null;
-  if (ticketId) {
-    team = ticketId.match("^(.+)-")[1];
-  }
-
   if (error) {
     return <div>Error: {error.message}</div>;
   } else if (!isLoaded) {
@@ -48,15 +35,22 @@ export default function Strip({ gameId }) {
     return (
       <div>
         <div className="strip-data">
-          <h2 className={`strip-data__id--${team}`}>{ticketId}</h2>
+          <h2 className={`strip-data__id--game-id`}>
+            Game id: {player.game_id}
+          </h2>
+          <h2 className={`strip-data__id--${player.team}`}>
+            {player.team}-{player.nickname}
+          </h2>
         </div>
         <div className="strip" style={css}>
-          {tickets.map((ticket, idx) => (
+          {player.strip.tickets.map((ticket, idx) => (
             <Ticket
               key={`ticket-${idx}`}
               data={ticket}
               uid={idx}
-              ticketId={ticketId}
+              team={player.team}
+              ticketId={player._id.$oid}
+              gameId={player.game_id}
             />
           ))}
         </div>

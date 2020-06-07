@@ -5,15 +5,14 @@ import "./index.scss";
 const compareArrays = (a, b) =>
   a.reduce((res, i) => res + (b.includes(i) ? 1 : 0), 0) === a.length;
 
-export default function Row({ data: { values }, uid, team }) {
-  const { gameId } = useParams();
+export default function Row({ data, uid, team, gameId }) {
   const loadOldUsed = JSON.parse(
     window.localStorage.getItem(`${gameId}-${uid}`) || "[]"
   );
 
   const [used, setUsed] = useState(loadOldUsed);
   const [complete, setComplete] = useState(false);
-  const [avaliable] = useState(values.filter((i) => i != null));
+  const [avaliable] = useState(data.filter((i) => i != null));
 
   const handleClick = (cell) => () => {
     if (!cell) {
@@ -33,11 +32,11 @@ export default function Row({ data: { values }, uid, team }) {
     setComplete(used.length > 0 && compareArrays(avaliable, used));
   }, [used]);
 
-  const cellWidth = 100 / values.length + 1;
+  const cellWidth = 100 / data.length + 1;
 
   return (
     <div className="row">
-      {values.map((cell, idx) => (
+      {data.map((cell, idx) => (
         <div
           onClick={handleClick(cell)}
           key={`cell-${idx}`}
