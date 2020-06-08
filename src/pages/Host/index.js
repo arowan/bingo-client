@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import words from "./numbers";
 import "./index.scss";
-import Result from "../../components/Result";
 
 function Host() {
   const [delay, setDelay] = useState(7000);

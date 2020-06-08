@@ -5,7 +5,7 @@ import "./index.scss";
 import hmmparrot from "./hmmparrot.gif";
 
 const getRandom = (array) => array[Math.floor(Math.random() * array.length)];
-export default function Game({ gameId, playerId, onPick }) {
+export default function Game({ gameId, player, onPick }) {
   const [isLoaded, setIsLoaded] = useState(true);
   const [gettingItem, setGettingItem] = useState(false);
   const [error, setError] = useState(null);
@@ -30,7 +30,7 @@ export default function Game({ gameId, playerId, onPick }) {
   }, []);
 
   const handlePick = (challenge) => {
-    fetch(`${process.env.REACT_APP_API_URL}/player/${playerId}/nominate`)
+    fetch(`${process.env.REACT_APP_API_URL}/player/${player.id}/nominate`)
       .then((res) => res.json())
       .then(
         (result) => {
@@ -41,7 +41,7 @@ export default function Game({ gameId, playerId, onPick }) {
           setError(error);
         }
       );
-    onPick();
+    onPick(challenge);
     setChallange(challenge);
   };
 
@@ -78,19 +78,27 @@ export default function Game({ gameId, playerId, onPick }) {
   return (
     <div className="game">
       {!challenge && (
-        <div className="game__challenages">
-          {challenges.map((challenge, idx) => (
-            <div key={`game-c-${idx}`} className="game__challenage">
-              <h3>{challenge.title}</h3>
-              <button onClick={() => handlePick(challenge)}>Pick</button>
-            </div>
-          ))}
+        <div className="game__challenage-container">
+          <h3>
+            <span class="capitalize-text">{player.nickname}</span>, pick a
+            challenge:
+          </h3>
+          <div className="game__challenages">
+            {challenges.map((challenge, idx) => (
+              <div
+                key={`game-c-${idx}`}
+                onClick={() => handlePick(challenge)}
+                className="game__challenage"
+              >
+                {challenge.title}
+              </div>
+            ))}
+          </div>
         </div>
       )}
 
       {challenge && (
-        <div className="game__challenage">
-          <h3>{challenge.title}</h3>
+        <div className="game__main-challenage">
           <p>{challenge.description}</p>
 
           {gettingItem && <img src={hmmparrot} />}
@@ -107,6 +115,9 @@ export default function Game({ gameId, playerId, onPick }) {
             >
               {nominations.blue[0]}
             </span>
+          </div>
+          <div className="game__nominations--vs">
+            <span>vs</span>
           </div>
           <div className="game__nominations--red">
             <span
