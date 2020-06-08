@@ -38,3 +38,7 @@ nav a:hover {
 nav a:first-of-type {
   background: $red;
 }
+
+.capitalize-text {
+  text-transform: capitalize;
+}

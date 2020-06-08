@@ -1,0 +1,87 @@
+@import "../../colours.scss";
+
+.check {
+  &__player {
+    cursor: pointer;
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    align-items: center;
+    font-size: 1.8em;
+
+    margin: 10px 0;
+    text-transform: capitalize;
+
+    &:hover {
+      filter: brightness(110%);
+    }
+    &--blue {
+      background: $blue;
+      color: darken($blue, 50%);
+    }
+    &--red {
+      background: $red;
+      color: darken($red, 50%);
+    }
+  }
+
+  &__parrot-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__player-teams {
+    width: 45%;
+  }
+  &__player-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+
+  &__bubble {
+    position: relative;
+    width: 215px;
+    height: 60px;
+    padding: 5px;
+    background: #ffffff;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+    border: black solid 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.6em;
+  }
+
+  &__bubble:after {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 13px 34px 13px 0;
+    border-color: transparent #ffffff;
+    display: block;
+    width: 0;
+    z-index: 1;
+    left: -34px;
+    top: 29px;
+  }
+
+  &__bubble:before {
+    content: "";
+    position: absolute;
+    border-style: solid;
+    border-width: 17px 38px 17px 0;
+    border-color: transparent black;
+    display: block;
+    width: 0;
+    z-index: 0;
+    left: -43px;
+    top: 25px;
+  }
+}

@@ -4,28 +4,51 @@ import Strip from "../../components/Strip";
 import "./index.scss";
 
 function Play() {
-  const [tempGameId, setTempGameId] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(true);
+  const [error, setError] = useState(null);
   const [localGameId, setLocalGameId] = useState(null);
-  const { gameId = false } = useParams();
+  const [localNickname, setLocalNickname] = useState(null);
+  const { playerId = false } = useParams();
   const history = useHistory();
 
-  const handleUpdate = ({ target: { value } }) => {
+  const handleGameIdUpdate = ({ target: { value } }) => {
     setLocalGameId(value);
-    setTempGameId(value);
+  };
+
+  const handleNicknameUpdate = ({ target: { value } }) => {
+    setLocalNickname(value);
   };
 
   const handleClick = () => {
+    setIsLoaded(false);
     window.localStorage.clear();
-    history.push(`/play/${localGameId}`);
+    fetch(`${process.env.REACT_APP_API_URL}/player`, {
+      method: "POST",
+      body: JSON.stringify({ game_id: localGameId, nickname: localNickname }),
+    })
+      .then((res) => res.json())
+      .then(
+        (result) => {
+          history.push(`/play/${result._id.$oid}`);
+        },
+        (error) => {
+          setIsLoaded(true);
+          setError(error);
+        }
+      );
   };
 
   return (
     <div>
-      {gameId && <Strip gameId={gameId} />}
-      {!gameId && (
+      {playerId && <Strip playerId={playerId} />}
+      {!playerId && (
         <div className="play">
-          <input onChange={handleUpdate} placeholder="Game ID"></input>
-          <button disabled={!tempGameId} onClick={handleClick}>
+          <input onChange={handleGameIdUpdate} placeholder="Game ID"></input>
+          <input onChange={handleNicknameUpdate} placeholder="Nickname"></input>
+          <button
+            disabled={!localGameId || !localNickname}
+            onClick={handleClick}
+          >
             Join
           </button>
         </div>

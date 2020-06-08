@@ -1,0 +1,76 @@
+@import "../../colours.scss";
+
+.game {
+  &__challenage-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    h3 {
+      font-size: 3em;
+    }
+  }
+  &__challenages {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  &__challenage {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+    background: $green;
+    color: darken($green, 70%);
+    font-size: 2em;
+    margin-bottom: 20px;
+    cursor: pointer;
+    &:hover {
+      filter: brightness(150%);
+    }
+  }
+
+  &__main-challenage {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    p {
+      font-size: 2.5em;
+      margin: 30px;
+    }
+
+    h4 {
+      font-size: 2em;
+    }
+  }
+
+  &__nominations {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 3em;
+    &--blue {
+      text-transform: uppercase;
+      color: $blue;
+      margin-right: 20px;
+    }
+
+    &--vs {
+      color: #d3d3d3;
+    }
+
+    &--red {
+      text-transform: uppercase;
+      color: $red;
+      margin-left: 20px;
+    }
+  }
+}
