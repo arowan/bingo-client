@@ -24,14 +24,16 @@ function Play() {
     window.localStorage.clear();
     fetch(`${process.env.REACT_APP_API_URL}/player`, {
       method: "POST",
-      body: JSON.stringify({ game_id: localGameId, nickname: localNickname }),
+      body: JSON.stringify({ game_id: localGameId, nickname: localNickname })
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (result) => {
-          history.push(`/play/${result._id.$oid}`);
+        result => {
+          if (result) {
+            history.push(`/play/${result._id.$oid}`);
+          }
         },
-        (error) => {
+        error => {
           setIsLoaded(true);
           setError(error);
         }

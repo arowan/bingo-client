@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import "./index.scss";
 import hmmparrot from "./hmmparrot.gif";
 
-const getRandom = (array) => array[Math.floor(Math.random() * array.length)];
+const getRandom = array => array[Math.floor(Math.random() * array.length)];
 export default function Game({ gameId, player, onPick }) {
   const [isLoaded, setIsLoaded] = useState(true);
   const [gettingItem, setGettingItem] = useState(false);
@@ -17,26 +17,26 @@ export default function Game({ gameId, player, onPick }) {
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_API_URL}/game/${gameId}/challenges`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (result) => {
+        result => {
           setChallanges(result.challenges);
         },
-        (error) => {
+        error => {
           setIsLoaded(true);
           setError(error);
         }
       );
-  }, []);
+  }, [gameId]);
 
-  const handlePick = (challenge) => {
+  const handlePick = challenge => {
     fetch(`${process.env.REACT_APP_API_URL}/player/${player.id}/nominate`)
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (result) => {
+        result => {
           setNominations(result);
         },
-        (error) => {
+        error => {
           setIsLoaded(true);
           setError(error);
         }
@@ -45,16 +45,16 @@ export default function Game({ gameId, player, onPick }) {
     setChallange(challenge);
   };
 
-  const handlePointForTeam = (team) => {
+  const handlePointForTeam = team => {
     fetch(`${process.env.REACT_APP_API_URL}/game/${gameId}/point/${team}`, {
-      method: "PUT",
+      method: "PUT"
     })
-      .then((res) => res.json())
+      .then(res => res.json())
       .then(
-        (result) => {
+        result => {
           history.push(`/host/${gameId}`);
         },
-        (error) => {
+        error => {
           setIsLoaded(true);
           setError(error);
         }
@@ -106,7 +106,7 @@ export default function Game({ gameId, player, onPick }) {
         </div>
       )}
 
-      {nominations && (
+      {nominations && nominations.blue && nominations.blue && (
         <div className="game__nominations">
           <div className="game__nominations--blue">
             <span
